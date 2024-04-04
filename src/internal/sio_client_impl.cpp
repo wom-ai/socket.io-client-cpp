@@ -52,6 +52,11 @@ namespace sio
         } else {
             m_client.init_asio();
         }
+        #if SIO_TLS
+        if (options.ssl_context != nullptr) {
+            ssl_context = options.ssl_context;
+        }
+        #endif
 
         // Bind the clients we are using
         using std::placeholders::_1;
@@ -627,6 +632,9 @@ failed:
 #if SIO_TLS
     client_impl::context_ptr client_impl::on_tls_init(connection_hdl conn)
     {
+        if (ssl_context)
+            return context_ptr(ssl_context);
+
         context_ptr ctx = context_ptr(new  asio::ssl::context(asio::ssl::context::tls));
         asio::error_code ec;
         ctx->set_options(asio::ssl::context::default_workarounds |

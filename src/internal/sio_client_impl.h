@@ -191,6 +191,8 @@ namespace sio
         typedef websocketpp::lib::shared_ptr<asio::ssl::context> context_ptr;
         
         context_ptr on_tls_init(connection_hdl con);
+
+        asio::ssl::context *ssl_context = nullptr;
         #endif
         
         // Percent encode query string

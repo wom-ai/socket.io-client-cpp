@@ -13,6 +13,9 @@
 
 namespace asio {
     class io_context;
+    namespace ssl {
+        class context;
+    }
 }
 
 namespace sio
@@ -21,6 +24,7 @@ namespace sio
 
     struct client_options {
         asio::io_context* io_context = nullptr;
+        asio::ssl::context *ssl_context = nullptr;
     };
     
     class client {
